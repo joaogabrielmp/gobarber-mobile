@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Image,
   Keyboard,
@@ -9,6 +9,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
 
 import logoImg from '../../assets/logo.png';
 import Button from '../../components/Button';
@@ -23,13 +26,51 @@ import {
   Title,
 } from './styles';
 
+interface ISignInFormData {
+  email: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
   const navigation = useNavigation();
 
+  const formRef = useRef<FormHandles>(null);
+
   const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
 
   const keyboardDidHide = useCallback((): void => setIsHidden(false), []);
+
+  const handleSignIn = useCallback(async (data: ISignInFormData) => {
+    try {
+      console.log(data);
+
+      // formRef.current?.setErrors({});
+      // const schema = Yup.object().shape({
+      //   email: Yup.string()
+      //     .email('Digite um e-mail válido')
+      //     .required('E-mail obrigatório'),
+      //   password: Yup.string().required('Senha obrigatória'),
+      // });
+      // await schema.validate(data, {
+      //   abortEarly: false,
+      // });
+      // await signIn({
+      //   email: data.email,
+      //   password: data.password,
+      // });
+    } catch (err) {
+      // if (err instanceof Yup.ValidationError) {
+      //   const errors = getValidationErrors(err);
+      //   formRef.current?.setErrors(errors);
+      //   return;
+      // }
+      // Alert.alert(
+      //   'Erro na autenticação',
+      //   'Ocorreu um erro ao fazer login, cheque as credenciais',
+      // );
+    }
+  }, []);
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', keyboardDidShow);
@@ -40,7 +81,7 @@ const SignIn: React.FC = () => {
       Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
       Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
     };
-  }, []);
+  }, [keyboardDidHide, keyboardDidShow]);
 
   return (
     <>
@@ -60,16 +101,19 @@ const SignIn: React.FC = () => {
             <Title>Faça seu logon</Title>
           </View>
 
-          <Input name="email" icon="mail" placeholder="E-mail" />
-          <Input name="password" icon="lock" placeholder="Senha" />
+          <Form ref={formRef} onSubmit={handleSignIn}>
+            <Input name="email" icon="mail" placeholder="E-mail" />
 
-          <Button
-            onPress={() => {
-              console.log('A');
-            }}
-          >
-            Entrar
-          </Button>
+            <Input name="password" icon="lock" placeholder="Senha" />
+
+            <Button
+              onPress={() => {
+                formRef.current?.submitForm();
+              }}
+            >
+              Entrar
+            </Button>
+          </Form>
 
           <ForgotPassword onPress={() => {}}>
             <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>

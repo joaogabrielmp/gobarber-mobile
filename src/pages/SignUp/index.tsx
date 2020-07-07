@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Image,
   Keyboard,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
 
 import logoImg from '../../assets/logo.png';
 import Button from '../../components/Button';
@@ -24,6 +26,8 @@ import {
 const SignUp: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
   const navigation = useNavigation();
+
+  const formRef = useRef<FormHandles>(null);
 
   const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
 
@@ -58,11 +62,21 @@ const SignUp: React.FC = () => {
             <Title>Crie sua conta</Title>
           </View>
 
-          <Input name="name" icon="user" placeholder="Nome" />
-          <Input name="email" icon="mail" placeholder="E-mail" />
-          <Input name="password" icon="lock" placeholder="Senha" />
+          <Form ref={formRef} onSubmit={() => {}}>
+            <Input name="name" icon="user" placeholder="Nome" />
 
-          <Button onPress={() => {}}>Criar conta</Button>
+            <Input name="email" icon="mail" placeholder="E-mail" />
+
+            <Input name="password" icon="lock" placeholder="Senha" />
+
+            <Button
+              onPress={() => {
+                formRef.current?.submitForm();
+              }}
+            >
+              Criar conta
+            </Button>
+          </Form>
         </Container>
         <ScrollView />
       </KeyboardAvoidingView>
