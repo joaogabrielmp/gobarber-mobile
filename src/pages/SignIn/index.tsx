@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
 import logoImg from '../../assets/logo.png';
 import Button from '../../components/Button';
@@ -24,6 +25,7 @@ import {
 
 const SignIn: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
+  const navigation = useNavigation();
 
   const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
 
@@ -77,7 +79,7 @@ const SignIn: React.FC = () => {
       </KeyboardAvoidingView>
 
       {!isHidden && (
-        <CreateAccountButton onPress={() => {}}>
+        <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
           <Icon name="log-in" size={20} color="#ff9000" />
           <CreateAccountButtonText>Criar um conta</CreateAccountButtonText>
         </CreateAccountButton>
