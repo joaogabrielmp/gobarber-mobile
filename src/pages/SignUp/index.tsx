@@ -18,6 +18,7 @@ import * as Yup from 'yup';
 import logoImg from '../../assets/logo.png';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import {
@@ -67,7 +68,7 @@ const SignUp: React.FC = () => {
           'Você já pode fazer login na aplicação',
         );
 
-        // await api.post('/users', data);
+        await api.post('/users', data);
 
         navigation.goBack();
       } catch (err) {
