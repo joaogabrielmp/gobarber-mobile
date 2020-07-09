@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo } from 'react';
-import Icon from 'react-native-vector-icons/Feather';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import Icon from 'react-native-vector-icons/Feather';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Container,
-  Title,
   Description,
   OkButton,
   OkButtonText,
+  Title,
 } from './styles';
 
 interface RouteParams {
@@ -20,7 +20,6 @@ const AppointmentCreated: React.FC = () => {
   const { reset } = useNavigation();
   const { params } = useRoute();
   const { date } = params as RouteParams;
-  // const date = Date.now();
 
   const handleOkPressed = useCallback(() => {
     reset({
