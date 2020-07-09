@@ -14,8 +14,12 @@ import {
   Calendar,
   Container,
   Content,
+  CreateAppointmentButton,
+  CreateAppointmentButtonText,
   Header,
   HeaderTitle,
+  Hour,
+  HourText,
   OpenDatePickerButton,
   OpenDatePickerButtonText,
   ProviderAvatar,
@@ -25,6 +29,10 @@ import {
   ProviderName,
   ProvidersList,
   ProvidersListContainer,
+  Section,
+  SectionContent,
+  SectionTitle,
+  Schedule,
   Title,
   UserAvatar,
   UserInitials,
@@ -132,7 +140,7 @@ const CreateAppointment: React.FC = () => {
       navigate('AppointmentCreated', { date: date.getTime() });
     } catch (error) {
       Alert.alert(
-        'erro ao criar agendamento',
+        'Erro ao criar agendamento',
         'Ocorreu um erro ao tentar criar o agendamento, tente novamente',
       );
     }
@@ -227,6 +235,55 @@ const CreateAppointment: React.FC = () => {
             />
           )}
         </Calendar>
+
+        <Schedule>
+          <Title>Escolha o horário</Title>
+
+          <Section>
+            <SectionTitle>Manhã</SectionTitle>
+
+            <SectionContent>
+              {morningAvailability.map(({ formattedHour, available, hour }) => (
+                <Hour
+                  enabled={available}
+                  selected={selectedHour === hour}
+                  onPress={() => handleSelectHour(hour)}
+                  available={available}
+                  key={formattedHour}
+                >
+                  <HourText selected={selectedHour === hour}>
+                    {formattedHour}
+                  </HourText>
+                </Hour>
+              ))}
+            </SectionContent>
+          </Section>
+          <Section>
+            <SectionTitle>Tarde</SectionTitle>
+
+            <SectionContent>
+              {afternoonAvailability.map(
+                ({ formattedHour, available, hour }) => (
+                  <Hour
+                    enabled={available}
+                    selected={selectedHour === hour}
+                    onPress={() => handleSelectHour(hour)}
+                    available={available}
+                    key={formattedHour}
+                  >
+                    <HourText selected={selectedHour === hour}>
+                      {formattedHour}
+                    </HourText>
+                  </Hour>
+                ),
+              )}
+            </SectionContent>
+          </Section>
+        </Schedule>
+
+        <CreateAppointmentButton onPress={handleCreateAppointment}>
+          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+        </CreateAppointmentButton>
       </Content>
     </Container>
   );

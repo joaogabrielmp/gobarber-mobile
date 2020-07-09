@@ -182,6 +182,7 @@ export const Hour = styled(RectButton)<HourProps>`
   padding: 12px;
   border-radius: 10px;
   margin-right: 8px;
+
   opacity: ${props => (props.available ? 1 : 0.3)};
 `;
 
