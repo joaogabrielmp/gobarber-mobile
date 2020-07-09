@@ -14,13 +14,15 @@ export const Title = styled.Text`
   margin: 16px 0;
 `;
 
-export const BackButton = styled.TouchableOpacity`
+export const ContainerIcon = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
   margin-top: ${Platform.OS === 'ios' ? 40 : 50}px;
 `;
 
-export const SignOutButton = styled.TouchableOpacity`
-  margin-top: ${Platform.OS === 'ios' ? 40 : 40}px;
-`;
+export const BackButton = styled.TouchableOpacity``;
+
+export const SignOutButton = styled.TouchableOpacity``;
 
 export const UserAvatarButton = styled.TouchableOpacity`
   margin-top: ${Platform.OS === 'ios' ? 32 : 2}px;

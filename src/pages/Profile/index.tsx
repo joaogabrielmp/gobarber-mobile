@@ -23,6 +23,8 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import {
   BackButton,
   Container,
+  ContainerIcon,
+  SignOutButton,
   UserAvatar,
   UserAvatarButton,
   UserInitials,
@@ -39,7 +41,7 @@ interface ProfileFormData {
 }
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
@@ -170,6 +172,10 @@ const Profile: React.FC = () => {
     navigation.goBack();
   }, [navigation]);
 
+  const handleSignOut = useCallback(() => {
+    signOut();
+  }, [signOut]);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -182,9 +188,15 @@ const Profile: React.FC = () => {
           contentContainerStyle={{ flex: 1 }}
         >
           <Container>
-            <BackButton onPress={handleGoBack}>
-              <Icon name="chevron-left" size={24} color="#fff" />
-            </BackButton>
+            <ContainerIcon>
+              <BackButton onPress={handleGoBack}>
+                <Icon name="chevron-left" size={26} color="#fff" />
+              </BackButton>
+
+              <SignOutButton onPress={handleSignOut}>
+                <Icon name="log-out" color="#fff" size={20} />
+              </SignOutButton>
+            </ContainerIcon>
 
             <UserAvatarButton onPress={handleUpdateAvatar}>
               {user.avatar_url ? (

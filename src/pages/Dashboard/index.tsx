@@ -21,7 +21,6 @@ import {
   ProviderName,
   ProvidersList,
   ProvidersListTitle,
-  SignOutButton,
   UserAvatar,
   UserInitials,
   UserInitialsContainer,
@@ -37,12 +36,8 @@ export interface Provider {
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
-  const { signOut, user } = useAuth();
+  const { user } = useAuth();
   const { navigate } = useNavigation();
-
-  const handleSignOut = useCallback(() => {
-    signOut();
-  }, [signOut]);
 
   const navigateToProfile = useCallback(() => {
     navigate('Profile');
@@ -99,10 +94,6 @@ const Dashboard: React.FC = () => {
             </UserInitialsContainer>
           )}
         </ProfileButton>
-
-        <SignOutButton onPress={handleSignOut}>
-          <Icon name="log-out" color="#ff9000" size={20} />
-        </SignOutButton>
       </Header>
 
       <ProvidersList
