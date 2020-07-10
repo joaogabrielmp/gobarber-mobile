@@ -39,7 +39,7 @@ const SignIn: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
   const navigation = useNavigation();
 
-  const { signIn, user } = useAuth();
+  const { signIn } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
