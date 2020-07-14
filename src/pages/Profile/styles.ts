@@ -17,7 +17,7 @@ export const Title = styled.Text`
 export const ContainerIcon = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: ${Platform.OS === 'ios' ? 40 : 50}px;
+  margin-top: ${Platform.OS === 'ios' ? 40 : 2}px;
 `;
 
 export const BackButton = styled.TouchableOpacity``;
@@ -26,9 +26,9 @@ export const SignOutButton = styled.TouchableOpacity``;
 
 export const UserAvatarButton = styled.TouchableOpacity`
   margin-top: ${Platform.OS === 'ios' ? 32 : 2}px;
-  width: 186px;
-  height: 186px;
-  border-radius: 98px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
 
   background: #28262e;
   border: 3px #ff9000;
@@ -39,9 +39,9 @@ export const UserAvatarButton = styled.TouchableOpacity`
 `;
 
 export const UserAvatar = styled.Image`
-  width: 186px;
-  height: 186px;
-  border-radius: 98px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
   border-width: 3px;
   border-color: #ff9000;
   padding: 3px;
